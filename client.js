@@ -41,10 +41,49 @@ const employees = [
 // Ask questions when you don't.
 
 // This function will calculate 1 employee's bonus!
-//
+
 function calculateIndividualEmployeeBonus(employee) {
-  // Your logic here
+  let bonusObject = {
+    name: employee.name,
+    bonusPercentage: 0,
+    totalCompensation: 0,
+    totalBonus: 0,
+  }
+
+  // review bonus
+  if (employee.reviewRating === 3) {
+    bonusObject.bonusPercentage += .04;
+  } else if(employee.reviewRating === 4){
+    bonusObject.bonusPercentage += .06;
+  } else if(employee.reviewRating === 5){
+    bonusObject.bonusPercentage += .1; 
+    } 
+
+ 
+  // seniority bonus
+  if(Number(employee.employeeNumber) < 10000){
+    bonusObject.bonusPercentage += .05; 
+  }
+  
+  // high earner bonus
+  if( Number.annualSalary > 65000){
+    bonusObject.bonusPercentage -= .01; 
+  }
+  
+  // cap between 0-13
+
+  // calculate bonus, total comp
+   bonusObject.totalBonus = Number(employee.annualSalary) * (bonusObject.bonusPercentage);
+   bonusObject.totalCompensation = Number(employee.annualSalary) +  bonusObject.totalBonus;
+  
+  return bonusObject;
 }
+employees.forEach(e => {
+  console.log(e.name)
+  let result = calculateIndividualEmployeeBonus(e);
+  console.log(result);
+});
+
 
 // Loop over each employee in the employees array
 // and call the calculateIndividualEmployeeBonus function for each one
